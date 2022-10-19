@@ -10,7 +10,6 @@ export const Container = styled.TouchableOpacity`
 `
 
 export const CoverView = styled.View`
-  /* flex: 1; */
   width: 100%;
 `
 

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Container, ContainerSelected, Title, TitleSelected } from './styles';
 
 interface CategoriesListMainProps {

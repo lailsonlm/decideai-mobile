@@ -66,6 +66,15 @@ export interface CategoriesListType {
   iconSelected: JSX.Element;
 }
 
+export interface CompaniesListType {
+  id: string;
+  cover: {
+    url: string;
+  };
+  name: string;
+  slug: string;
+}
+
 export function Home() {
   const theme = useTheme()
   const [isFontsLoaded] = useFonts({ Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold })
@@ -79,9 +88,9 @@ export function Home() {
     setSelectedCategory(category)
   }
 
-  const { data, loading, fetchMore, error } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
+  const { data, loading, error } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
 
-  const restaurants = data?.categories.find(category => category.slug === selectedCategoryInEnglish)?.companies.map(company => company)
+  const companies = data?.categories.find(category => category.slug === selectedCategoryInEnglish)?.companies.map(company => company)
 
   const categoriesList = [
     {
@@ -116,7 +125,13 @@ export function Home() {
     },
   ];
 
-  const renderItem: ListRenderItem<CategoriesListType> = ({item}) => <CategoriesListMain data={item} onSelectCategory={handleSelectCategory} selectedCategory={selectedCategory} />
+  const renderItemCategories: ListRenderItem<CategoriesListType> = ({item}) => <CategoriesListMain data={item} onSelectCategory={handleSelectCategory} selectedCategory={selectedCategory} />
+
+  const renderItemCompanies: ListRenderItem<CompaniesListType> = ({item}) => (
+    <View style={{ flex: 1, padding: 8 }}>
+      <Card cover={item.cover} name={item.name} key={item.id}/>
+    </View>
+  )
 
   if(!isFontSuezLoaded || !isFontsLoaded || loading) {
     return <Loading /> 
@@ -125,15 +140,10 @@ export function Home() {
   return (
     <Container >
       <FlatListCompanies
-      data={restaurants}
-      keyExtractor={item => item.id} 
-      numColumns={2}
-      renderItem= {({item}) => (
-        <View style={{ flex: 1, padding: 8 }}>
-          <Card cover={item.cover} name={item.name} key={item.id}/>
-        </View>
-      )}
-
+        data={companies}
+        keyExtractor={(item: CompaniesListType) => item.id} 
+        numColumns={2}
+        renderItem= {renderItemCompanies}
         ListHeaderComponent={() => (
           <>
           <Header />
@@ -154,7 +164,7 @@ export function Home() {
           <FlatListCategories
             data={categoriesList} 
             keyExtractor={(item: CategoriesListType) => item.id} 
-            renderItem={renderItem} 
+            renderItem={renderItemCategories} 
             horizontal
             contentContainerStyle={{ paddingLeft: 16, paddingRight: 16 }}
             showsHorizontalScrollIndicator={false}

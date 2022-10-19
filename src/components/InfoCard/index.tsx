@@ -1,5 +1,4 @@
 import { ListChecks, MapTrifold, Storefront } from 'phosphor-react-native';
-import { Text } from 'react-native'
 import { useTheme } from 'styled-components/native';
 import { Container, ViewGroup, ViewGroupDescription, Count, Title } from './styles';
 

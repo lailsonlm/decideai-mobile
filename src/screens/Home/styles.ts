@@ -4,7 +4,6 @@ import { CategoriesListType } from '.'
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_PRIMARY};
-  /* align-items: center; */
 `
 
 export const ViewIntro = styled.View`
@@ -42,7 +41,6 @@ export const ImgBackground = styled.Image`
 export const Main = styled.View`
   flex: 1;
   width: 100%;
-  /* margin-top: 24px; */
 `
 
 export const MainTitle = styled.Text`
@@ -59,9 +57,6 @@ export const FlatListCategories = styled.FlatList<CategoriesListType>`
 
 export const FlatListCompanies = styled.FlatList`
   flex: 1;
-  /* width: 100%; */
-  /* margin-top: 16px; */
-  /* flex-basis: 0; */
 `
 
 export const AlertError = styled.Text`
@@ -76,6 +71,6 @@ export const ButtonViewMore = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.LG};
   color: ${({ theme }) => theme.COLORS.TEXT_HIGHLIGHT};
   width: 100%;
-  text-align: right;
-  padding-right: 12px;
+  text-align: center;
+  margin-top: 16px;
 `
