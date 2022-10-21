@@ -1,18 +1,17 @@
-import { ListRenderItem, View } from 'react-native';
+import { ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
-import { useFonts, Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
-import { useFonts as useFontsSuez, SuezOne_400Regular } from '@expo-google-fonts/suez-one';
+import { useNavigation } from '@react-navigation/native';
 import { Coffee, Confetti, Cookie, ForkKnife, Martini } from 'phosphor-react-native';
 
 import { Header } from '../../components/Header';
 import { Loading } from '../../components/Loading';
 import { CategoriesListMain } from '../../components/CategoriesListMain';
+import { FlatListCompanies } from '../../components/FlatListCompanies';
 
-import { Container, ViewIntro, Heading, InstructionText, ImgBackground, MainTitle, FlatListCategories, FlatListCompanies, AlertError, ButtonViewMore } from './styles';
+import { Container, ViewIntro, Heading, InstructionText, ImgBackground, MainTitle, FlatListCategories, AlertError, ButtonViewMore, ButtonText } from './styles';
 import ImgBg from '../../assets/img_bg.png'
 import { useState } from 'react';
-import { Card } from '../../components/Card';
 import { InfoCard } from '../../components/InfoCard';
 
 const GET_MAIN_COMPANIES_BY_CATEGORY = gql`
@@ -66,19 +65,9 @@ export interface CategoriesListType {
   iconSelected: JSX.Element;
 }
 
-export interface CompaniesListType {
-  id: string;
-  cover: {
-    url: string;
-  };
-  name: string;
-  slug: string;
-}
-
 export function Home() {
   const theme = useTheme()
-  const [isFontsLoaded] = useFonts({ Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold })
-  const [isFontSuezLoaded] = useFontsSuez({ SuezOne_400Regular })
+  const navigation = useNavigation()
 
   const [selectedCategory, setSelectedCategory] = useState('Restaurantes')
 
@@ -86,6 +75,10 @@ export function Home() {
   
   function handleSelectCategory(category: string) {
     setSelectedCategory(category)
+  }
+  
+  function handleOpenCategory(slug: string) {
+    navigation.navigate('category', {slug})
   }
 
   const { data, loading, error } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
@@ -127,24 +120,17 @@ export function Home() {
 
   const renderItemCategories: ListRenderItem<CategoriesListType> = ({item}) => <CategoriesListMain data={item} onSelectCategory={handleSelectCategory} selectedCategory={selectedCategory} />
 
-  const renderItemCompanies: ListRenderItem<CompaniesListType> = ({item}) => (
-    <View style={{ flex: 1, padding: 8 }}>
-      <Card cover={item.cover} name={item.name} key={item.id}/>
-    </View>
-  )
 
-  if(!isFontSuezLoaded || !isFontsLoaded || loading) {
+
+  if(loading) {
     return <Loading /> 
   }
 
   return (
     <Container >
       <FlatListCompanies
-        data={companies}
-        keyExtractor={(item: CompaniesListType) => item.id} 
-        numColumns={2}
-        renderItem= {renderItemCompanies}
-        ListHeaderComponent={() => (
+        companies={companies}
+        ListHeaderComponent={(
           <>
           <Header />
           <ViewIntro>
@@ -175,9 +161,14 @@ export function Home() {
           }
           </>
         )}
-        ListFooterComponent={() => (
+        ListFooterComponent={(
           <>
-          <ButtonViewMore>Ver tudo</ButtonViewMore>
+          <ButtonViewMore
+            onPress={() => handleOpenCategory(selectedCategoryInEnglish)} 
+          >
+            <ButtonText>Ver tudo</ButtonText>
+          </ButtonViewMore>
+          
           <InfoCard totalCategories={data?.categories.length || 0} totalCompanies={data?.companiesConnection.aggregate.count || 0} />
           </>
 

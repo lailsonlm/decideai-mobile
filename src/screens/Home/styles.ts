@@ -55,10 +55,6 @@ export const FlatListCategories = styled.FlatList<CategoriesListType>`
   margin-bottom: 16px;
 `
 
-export const FlatListCompanies = styled.FlatList`
-  flex: 1;
-`
-
 export const AlertError = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.HEADING};
   font-size: ${({ theme }) => theme.FONT_SIZE.LG};
@@ -66,11 +62,17 @@ export const AlertError = styled.Text`
   text-align: center;
 `
 
-export const ButtonViewMore = styled.Text`
+export const ButtonViewMore = styled.Pressable`
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_HIGHLIGHT};
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin: 16px 8px 0;
+`
+
+export const ButtonText = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.SANS.SEMI_BOLD};
-  font-size: ${({ theme }) => theme.FONT_SIZE.LG};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD};
   color: ${({ theme }) => theme.COLORS.TEXT_HIGHLIGHT};
   width: 100%;
   text-align: center;
-  margin-top: 16px;
 `
