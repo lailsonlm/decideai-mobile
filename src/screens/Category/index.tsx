@@ -8,6 +8,7 @@ import { useTheme } from 'styled-components/native';
 import { FlatListCompanies } from '../../components/FlatListCompanies';
 import { Header } from '../../components/Header';
 import { Loading } from '../../components/Loading';
+import { MotiView } from 'moti';
 import { TitleCategory } from '../../components/TitleCategory';
 
 import { Container, ViewTitleCategory, AlertError } from './styles';
@@ -85,7 +86,7 @@ export interface CompaniesListType {
 
 export function Category() {
   const route = useRoute()
-    const theme = useTheme()
+  const theme = useTheme()
   const [citySelected, setCitySelected] = useState("All")
   const { slug } = route.params as RouteParams
 
@@ -125,7 +126,26 @@ export function Category() {
     <Container>
       <Header />
       <ViewTitleCategory>
-        <TitleCategory slug={slug} />
+        <MotiView
+          from={{
+            opacity: 0,
+            translateX: -5
+          }}
+          animate={{
+            opacity: 1,
+            translateX: 0
+          }}
+          transition={{
+            type: 'timing',
+            duration: 1000,
+            delay: 500,
+            translateX: {
+              type: 'spring',
+            }
+          }}
+        >
+          <TitleCategory slug={slug} />
+        </MotiView>
       </ViewTitleCategory>
 
       <Picker

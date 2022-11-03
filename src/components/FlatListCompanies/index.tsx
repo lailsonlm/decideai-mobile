@@ -27,7 +27,7 @@ export function FlatListCompanies({ companies, ListHeaderComponent, ListFooterCo
   const renderItemCompanies: ListRenderItem<CompaniesListType> = ({item}) => (
     <View style={{ flex: 0.5}}>
       <View style={{ flex: 1, padding: 8 }}>
-        <Card cover={item.cover} name={item.name}/>
+        <Card cover={item.cover} name={item.name} slug={item.slug}/>
       </View>
     </View> 
   )

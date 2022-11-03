@@ -1,26 +1,30 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { Home } from "../screens/Home";
-import { Category } from "../screens/Category";
 import { House, ForkKnife, Martini, Coffee, Cookie, Confetti } from "phosphor-react-native";
-import { useTheme } from "styled-components/native";
 
-const { Navigator, Screen } = createBottomTabNavigator()
+import { Category } from "../screens/Category";
+import { useTheme } from "styled-components/native";
+import { StackRoutes } from "./stack.routes";
+import { Company } from "../screens/Company";
+import { Home } from "../screens/Home";
+
+const { Navigator, Screen, Group } = createBottomTabNavigator()
 
 export function TabRoutes() {
   const theme = useTheme()
+  
   return (
     <Navigator 
-      screenOptions={{ 
+      screenOptions={({ route, navigation }) => ({
         headerShown: false,
         tabBarActiveTintColor: theme.COLORS.BACKGROUND_HIGHLIGHT,
         tabBarInactiveTintColor: theme.COLORS.TEXT_SECONDARY,
         tabBarStyle: {
           backgroundColor: theme.COLORS.TEXT_HIGHLIGHT,
-        }
-      }}>
+        },
+      })}>
+
       <Screen 
-        name="home"
+        name="homeTab"
         component={Home}
         options={{
           tabBarLabel: 'Home',
@@ -30,6 +34,7 @@ export function TabRoutes() {
         }}
       />
 
+      <Group>
       <Screen 
         name="restaurants"
         component={Category}
@@ -37,7 +42,7 @@ export function TabRoutes() {
           tabBarLabel: 'Restaurantes',
           tabBarIcon: ({ color, size }) => (
             <ForkKnife size={size} color={color} weight="fill" />
-          )
+          ),
         }}
         initialParams={{ 'slug': 'restaurants' }}
       />
@@ -80,15 +85,16 @@ export function TabRoutes() {
       <Screen 
         name="entertainment"
         component={Category}
-        options={{
+        options={({ route, navigation }) => ({
           tabBarLabel: 'Entretenimento',
           tabBarIcon: ({ color, size }) => (
             <Confetti size={size} color={color} weight="fill" />
-          )
-        }}
+          ),
+        })}
         initialParams={{ 'slug': 'entertainment' }}
+        
       />
-
+      </Group>
     </Navigator>
   )
 }

@@ -2,6 +2,7 @@ import { ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
+import { MotiView, MotiImage } from 'moti';
 import { Coffee, Confetti, Cookie, ForkKnife, Martini } from 'phosphor-react-native';
 
 import { Header } from '../../components/Header';
@@ -68,7 +69,6 @@ export interface CategoriesListType {
 export function Home() {
   const theme = useTheme()
   const navigation = useNavigation()
-
   const [selectedCategory, setSelectedCategory] = useState('Restaurantes')
 
   const selectedCategoryInEnglish = selectedCategory === 'Restaurantes' ? 'restaurants' : selectedCategory === 'Cafeterias' ? 'coffee-shops' : selectedCategory === 'Bares' ? 'bars' : selectedCategory === 'Docerias' ? 'candy-stores' : 'entertainment'
@@ -78,11 +78,10 @@ export function Home() {
   }
   
   function handleOpenCategory(slug: string) {
-    navigation.navigate('category', {slug})
+    navigation.navigate(slug as any)
   }
 
   const { data, loading, error } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
-
   const companies = data?.categories.find(category => category.slug === selectedCategoryInEnglish)?.companies.map(company => company)
 
   const categoriesList = [
@@ -120,8 +119,6 @@ export function Home() {
 
   const renderItemCategories: ListRenderItem<CategoriesListType> = ({item}) => <CategoriesListMain data={item} onSelectCategory={handleSelectCategory} selectedCategory={selectedCategory} />
 
-
-
   if(loading) {
     return <Loading /> 
   }
@@ -134,27 +131,95 @@ export function Home() {
           <>
           <Header />
           <ViewIntro>
-            <Heading>
-              O que você procura está aqui, quem decide é você!
-            </Heading>
-            <InstructionText>
-              Selecione a categoria e encontre as melhores opções de lugares e estabelecimentos para você conhecer.
-            </InstructionText>
-            <ImgBackground 
+            <MotiView
+              from={{
+                opacity: 0,
+                translateX: 5
+              }}
+              animate={{
+                opacity: 1,
+                translateX: 0
+              }}
+              transition={{
+                type: 'timing',
+                duration: 3000,
+                translateX: {
+                  type: 'spring',
+                }
+              }}
+            >
+              <Heading>
+                O que você procura está aqui, quem decide é você!
+              </Heading>
+            </MotiView>
+            <MotiView
+               from={{
+                opacity: 0,
+                translateY: 5
+              }}
+              animate={{
+                opacity: 1,
+                translateX: 0
+              }}
+              transition={{
+                type: 'timing',
+                duration: 3000,
+                translateX: {
+                  type: 'spring',
+                  delay: 1000
+                }
+              }}
+            >
+              <InstructionText>
+                Selecione a categoria e encontre as melhores opções de lugares e estabelecimentos para você conhecer.
+              </InstructionText>
+            </MotiView>
+            <MotiImage 
+              style={{ marginTop: 16, marginLeft: 24 }}
               source={ImgBg}
+              from={{
+                opacity: 0,
+                scale: 0.9
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1
+              }}
+              transition={{
+                type: 'timing',
+                duration: 1000
+              }}
             />
           </ViewIntro>
 
           <MainTitle>Principais categorias</MainTitle>
-      
-          <FlatListCategories
-            data={categoriesList} 
-            keyExtractor={(item: CategoriesListType) => item.id} 
-            renderItem={renderItemCategories} 
-            horizontal
-            contentContainerStyle={{ paddingLeft: 16, paddingRight: 16 }}
-            showsHorizontalScrollIndicator={false}
-          />
+          <MotiView
+            from={{
+              opacity: 0,
+              translateX: 50
+            }}
+            animate={{
+              opacity: 1,
+              translateX: 0
+            }}
+            transition={{
+              type: 'timing',
+              duration: 1000,
+              delay: 1000,
+              translateX: {
+                type: 'spring',
+              }
+            }}
+          >
+            <FlatListCategories
+              data={categoriesList} 
+              keyExtractor={(item: CategoriesListType) => item.id} 
+              renderItem={renderItemCategories} 
+              horizontal
+              contentContainerStyle={{ paddingLeft: 16, paddingRight: 16 }}
+              showsHorizontalScrollIndicator={false}
+            />
+          </MotiView>
 
           {error &&
             <AlertError>Erro ao buscar dados, tente novamente!</AlertError>

@@ -48,6 +48,7 @@ export const MainTitle = styled.Text`
   padding: 0 24px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.HEADING};
   font-size: ${({ theme }) => theme.FONT_SIZE.LG};
+  color: ${({ theme }) => theme.COLORS.TEXT_TITLE};
 `
 
 export const FlatListCategories = styled.FlatList<CategoriesListType>`

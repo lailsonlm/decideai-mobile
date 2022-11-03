@@ -7,6 +7,7 @@ export const Container = styled.SafeAreaView`
 
 export const ViewTitleCategory = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_SECONDARY};
+  padding: 0 0 24px 24px;
 `
 
 export const AlertError = styled.Text`

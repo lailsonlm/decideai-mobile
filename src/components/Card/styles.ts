@@ -18,6 +18,7 @@ export const NameCard = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.LG};
   padding: 8px;
   text-align: center;
+  color: ${({ theme }) => theme.COLORS.TEXT_TITLE};
 `
 
 export const ImageCover = styled.Image`
