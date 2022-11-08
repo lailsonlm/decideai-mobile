@@ -2,10 +2,9 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_CARD};
-  margin-top: 16px;
   color: ${({ theme }) => theme.COLORS.TEXT_HIGHLIGHT};
   padding: 24px;
-  margin-bottom: 60px;
+  margin: 16px 0px 60px;
 `
 
 export const Title = styled.Text`

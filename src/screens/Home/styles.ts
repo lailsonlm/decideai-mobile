@@ -68,6 +68,9 @@ export const ButtonViewMore = styled.Pressable`
   padding: 8px 16px;
   border-radius: 4px;
   margin: 16px 8px 0;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
 `
 
 export const ButtonText = styled.Text`

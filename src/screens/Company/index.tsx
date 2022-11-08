@@ -103,7 +103,7 @@ export function Company() {
             }
           }}
         >
-          <ButtonGoBack onPress={() => navigation.goBack()}>
+          <ButtonGoBack onPress={() => navigation.goBack()} accessible={true} accessibilityLabel={"Voltar para tela anterior"}>
             <ArrowLeft color={theme.COLORS.TEXT_PRIMARY} />
           </ButtonGoBack>
           <TitleCategory slug={data.company.categories[0].slug} />
@@ -154,22 +154,22 @@ export function Company() {
 
           <SocialMedia>
             {data.company.whatsapp &&
-              <Link onPress={() => Linking.openURL(`https://wa.me/55${data.company.whatsapp}`)} >
-                <WhatsappLogo size={32} weight="fill" color={theme.COLORS.ICONS}  />
+              <Link onPress={() => Linking.openURL(`https://wa.me/55${data.company.whatsapp}`)} accessible={true} accessibilityLabel={"Abrir whatsapp"} >
+                <WhatsappLogo size={40} weight="fill" color={theme.COLORS.ICONS}  />
               </Link>
             }
 
             {data.company.instagramUrl &&
-              <Link onPress={() => Linking.openURL(data.company.instagramUrl)} >
-                <InstagramLogo size={32} weight="fill" color={theme.COLORS.ICONS}   />
+              <Link onPress={() => Linking.openURL(data.company.instagramUrl)} accessible={true} accessibilityLabel={"Abrir Instagram"} >
+                <InstagramLogo size={40} weight="fill" color={theme.COLORS.ICONS}   />
               </Link>
             }
 
             {data.company.facebookUrl ?
-              <Link onPress={() => Linking.openURL(data.company.facebookUrl)} >
-                <FacebookLogo size={32} weight="fill" color={theme.COLORS.ICONS}   />
+              <Link onPress={() => Linking.openURL(data.company.facebookUrl)} accessible={true} accessibilityLabel={"Abrir Facebook"} >
+                <FacebookLogo size={40} weight="fill" color={theme.COLORS.ICONS}   />
               </Link>
-              : <View style={{ width: 32, height: 32 }} />
+              : <View style={{ width: 40, height: 40 }} />
             }
           </SocialMedia>
         </MotiView>
