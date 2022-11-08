@@ -159,7 +159,7 @@ export function Company() {
               </Link>
             }
 
-            {data.company.instagramUrl &&
+            {data.company.instagramUrl && 
               <Link onPress={() => Linking.openURL(data.company.instagramUrl)} accessible={true} accessibilityLabel={"Abrir Instagram"} >
                 <InstagramLogo size={40} weight="fill" color={theme.COLORS.ICONS}   />
               </Link>
@@ -171,6 +171,7 @@ export function Company() {
               </Link>
               : <View style={{ width: 40, height: 40 }} />
             }
+            {!data.company.whatsapp && <View style={{ width: 40, height: 40 }} />}
           </SocialMedia>
         </MotiView>
       </Main>
