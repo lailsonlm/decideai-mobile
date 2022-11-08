@@ -1,5 +1,6 @@
-import React from 'react';
-import { ListRenderItem, View } from 'react-native';
+import { ApolloQueryResult, OperationVariables } from '@apollo/client';
+import React, { useCallback, useState } from 'react';
+import { ListRenderItem, RefreshControl, View } from 'react-native';
 import { Card } from '../Card';
 import { Container } from './styles';
 
@@ -18,10 +19,18 @@ interface FlatListCompaniesProps {
   ListFooterComponent?: JSX.Element;
   onEndReached?: ((info: {distanceFromEnd: number}) => void) | null | undefined;
   onEndReachedThreshould?: number;
+  refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>
 }
 
-export function FlatListCompanies({ companies, ListHeaderComponent, ListFooterComponent, onEndReached, onEndReachedThreshould }: FlatListCompaniesProps) {
+export function FlatListCompanies({ companies, ListHeaderComponent, ListFooterComponent, onEndReached, onEndReachedThreshould, refetch }: FlatListCompaniesProps) {
+  const [refreshing, setRefreshing] = useState(false);
   const columns = 2;
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch()
+    setRefreshing(false)
+  }, []);
 
   const renderItemCompanies: ListRenderItem<CompaniesListType> = ({item}) => (
     <View style={{ flex: 0.5}}>
@@ -39,6 +48,7 @@ export function FlatListCompanies({ companies, ListHeaderComponent, ListFooterCo
       onEndReached={onEndReached}
       onEndReachedThreshould={onEndReachedThreshould}
       renderItem= {renderItemCompanies}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       ListHeaderComponent={ListHeaderComponent}
       ListFooterComponent={ListFooterComponent}
     />

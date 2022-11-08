@@ -138,7 +138,7 @@ export function Company() {
           <CompanyAdress>
           <CompanyAdressContent>
             <CompanyAdressType>Endereço: </CompanyAdressType>
-            {data.company.adress}
+            {data.company.adress}, {data.company.numberAdress ? data.company.numberAdress : 'S/N'}
           </CompanyAdressContent>
 
           <CompanyAdressContent>

@@ -1,7 +1,7 @@
 import { ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { MotiView, MotiImage } from 'moti';
 import { Coffee, Confetti, Cookie, ForkKnife, Martini } from 'phosphor-react-native';
 
@@ -12,7 +12,7 @@ import { FlatListCompanies } from '../../components/FlatListCompanies';
 
 import { Container, ViewIntro, Heading, InstructionText, MainTitle, FlatListCategories, AlertError, ButtonViewMore, ButtonText } from './styles';
 import ImgBg from '../../assets/img_bg.png'
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { InfoCard } from '../../components/InfoCard';
 import { BannerInstagram } from '../../components/BannerInstagram';
 
@@ -82,7 +82,12 @@ export function Home() {
     navigation.navigate(slug as any)
   }
 
-  const { data, loading, error } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
+  const { data, loading, error, refetch } = useQuery<MainCompaniesQuery>(GET_MAIN_COMPANIES_BY_CATEGORY)
+
+  // useFocusEffect(useCallback(() => {
+  //   setSelectedCategory('Restaurantes')
+  // }, []))
+  
   const companies = data?.categories.find(category => category.slug === selectedCategoryInEnglish)?.companies.map(company => company)
 
   const categoriesList = [
@@ -125,8 +130,9 @@ export function Home() {
   }
 
   return (
-    <Container >
+    <Container>
       <FlatListCompanies
+        refetch={refetch}
         companies={companies}
         ListHeaderComponent={(
           <>

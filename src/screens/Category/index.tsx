@@ -92,7 +92,7 @@ export function Category() {
 
   const city = citySelected === "All" ? undefined : [citySelected]
 
-  const { data, loading, fetchMore, error } = useQuery<GetCompanies>(GET_COMPANIES_BY_CATEGORY_AND_LOCALITY_QUERY, {
+  const { data, loading, fetchMore, error, refetch } = useQuery<GetCompanies>(GET_COMPANIES_BY_CATEGORY_AND_LOCALITY_QUERY, {
     variables: {
       city,
       slug,
@@ -165,6 +165,7 @@ export function Category() {
         <AlertError>Erro ao buscar dados, tente novamente!</AlertError>
       }
       <FlatListCompanies
+        refetch={refetch}
         companies={companies}
         onEndReached={getMoreCompanies}
         onEndReachedThreshould={0.1}
