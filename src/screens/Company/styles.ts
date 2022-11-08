@@ -62,6 +62,8 @@ export const CompanyAdressContent = styled.Text`
 
 export const SocialMedia = styled.View`
   flex-direction: row;
+  width: 150px;
+  justify-content: space-between;
   margin-top: 24px;
   margin-bottom: 24px;
 `

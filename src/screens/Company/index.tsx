@@ -1,4 +1,4 @@
-import { Image, Linking } from 'react-native';
+import { Image, Linking, View } from 'react-native';
 import { gql, useQuery } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeft, WhatsappLogo, InstagramLogo, FacebookLogo } from 'phosphor-react-native';
@@ -131,7 +131,9 @@ export function Company() {
         >
           <CompanyName>{data.company.name}</CompanyName>
           <Image source={{ uri: data.company.cover.url }} style={{ width: 500, maxWidth: '100%', height: 184, marginTop: 8 }} />
+          {data.company.description &&
           <CompanyDescription>{data.company.description}</CompanyDescription>
+          }
 
           <CompanyAdress>
           <CompanyAdressContent>
@@ -163,10 +165,11 @@ export function Company() {
               </Link>
             }
 
-            {data.company.facebookUrl &&
+            {data.company.facebookUrl ?
               <Link onPress={() => Linking.openURL(data.company.facebookUrl)} >
                 <FacebookLogo size={32} weight="fill" color={theme.COLORS.ICONS}   />
               </Link>
+              : <View style={{ width: 32, height: 32 }} />
             }
           </SocialMedia>
         </MotiView>

@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_PRIMARY};
+  padding-bottom: 30px;
 `
 
 export const ViewTitleCategory = styled.View`

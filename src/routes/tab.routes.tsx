@@ -1,10 +1,9 @@
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { House, ForkKnife, Martini, Coffee, Cookie, Confetti } from "phosphor-react-native";
 
 import { Category } from "../screens/Category";
 import { useTheme } from "styled-components/native";
-import { StackRoutes } from "./stack.routes";
-import { Company } from "../screens/Company";
 import { Home } from "../screens/Home";
 
 const { Navigator, Screen, Group } = createBottomTabNavigator()
@@ -19,7 +18,14 @@ export function TabRoutes() {
         tabBarActiveTintColor: theme.COLORS.BACKGROUND_HIGHLIGHT,
         tabBarInactiveTintColor: theme.COLORS.TEXT_SECONDARY,
         tabBarStyle: {
+          position: 'absolute',
+          height: 60,
+          borderTopWidth: 0,
           backgroundColor: theme.COLORS.TEXT_HIGHLIGHT,
+        },
+        tabBarItemStyle: {
+          position: 'relative',
+          top: Platform.OS === 'android' ? -6 : 0
         },
       })}>
 

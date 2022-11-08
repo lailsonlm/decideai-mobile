@@ -12,7 +12,6 @@ export interface CompaniesListType {
   slug: string;
 }
 
-
 interface FlatListCompaniesProps {
   companies: CompaniesListType[] | undefined;
   ListHeaderComponent?: JSX.Element;

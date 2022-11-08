@@ -10,10 +10,11 @@ import { Loading } from '../../components/Loading';
 import { CategoriesListMain } from '../../components/CategoriesListMain';
 import { FlatListCompanies } from '../../components/FlatListCompanies';
 
-import { Container, ViewIntro, Heading, InstructionText, ImgBackground, MainTitle, FlatListCategories, AlertError, ButtonViewMore, ButtonText } from './styles';
+import { Container, ViewIntro, Heading, InstructionText, MainTitle, FlatListCategories, AlertError, ButtonViewMore, ButtonText } from './styles';
 import ImgBg from '../../assets/img_bg.png'
 import { useState } from 'react';
 import { InfoCard } from '../../components/InfoCard';
+import { BannerInstagram } from '../../components/BannerInstagram';
 
 const GET_MAIN_COMPANIES_BY_CATEGORY = gql`
   query GET_MAIN_COMPANIES_BY_CATEGORY {
@@ -235,6 +236,7 @@ export function Home() {
           </ButtonViewMore>
           
           <InfoCard totalCategories={data?.categories.length || 0} totalCompanies={data?.companiesConnection.aggregate.count || 0} />
+          <BannerInstagram />
           </>
 
         )}
