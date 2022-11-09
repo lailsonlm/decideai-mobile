@@ -12,6 +12,10 @@ jobs:
             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
             exit 1
           fi
+      - name: Run Commands with a Secret
+        env:
+            API_URL: ${{ secrets.API_URL }}
+            API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
 
       - name: Checkout repository
         uses: actions/checkout@v2
