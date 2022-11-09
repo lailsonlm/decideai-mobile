@@ -12,19 +12,19 @@ jobs:
             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
             exit 1
           fi
-      - name: Run Commands with a Secret - API_URL
-        env:
-            API_URL: ${{ secrets.API_URL }}
-        run: |
-          echo "API_URL"
-          echo "This is a secret value: $API_URL"
+      # - name: Run Commands with a Secret - API_URL
+      #   env:
+      #       API_URL: ${{ secrets.API_URL }}
+      #   run: |
+      #     echo "API_URL"
+      #     echo "This is a secret value: $API_URL"
 
-      - name: Run Commands with a Secret - API_ACCESS_TOKEN
-        env:
-            API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
-        run: |
-          echo "API_ACCESS_TOKEN"
-          echo "This is a secret value: $API_ACCESS_TOKEN"
+      # - name: Run Commands with a Secret - API_ACCESS_TOKEN
+      #   env:
+      #       API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+      #   run: |
+      #     echo "API_ACCESS_TOKEN"
+      #     echo "This is a secret value: $API_ACCESS_TOKEN"
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -57,4 +57,4 @@ jobs:
         run: yarn install --immutable
 
       - name: Publish update
-        run: eas update --auto
+        run: eas update --auto --platform android
