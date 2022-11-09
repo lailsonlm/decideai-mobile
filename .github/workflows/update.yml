@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          cache: npm
+          cache: 'npm'
 
       - name: Setup Expo
         uses: expo/expo-github-action@v7
@@ -37,10 +37,11 @@ jobs:
       - name: Restore cache
         uses: actions/cache@v2
         with:
-          cache-dependency-path: './package-lock.json'
-          # path: ${{ steps.npm-cache-path.outputs.dir }}
+          # cache-dependency-path: './package-lock.json'
+          path: ${{ steps.npm-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           # key: ${{ runner.os }}-npm-${{ hashFiles('**/npm.lock') }}
-          # restore-keys: ${{ runner.os }}-npm-
+          restore-keys: ${{ runner.os }}-npm-
 
       - name: Install dependencies
         run: npm install --immutable
