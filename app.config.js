@@ -37,7 +37,9 @@ export default () => ({
     },
     extra: {
       eas: {
-        projectId: "624b0341-a7e1-471e-82ec-e9b57e3254eb"
+        projectId: "624b0341-a7e1-471e-82ec-e9b57e3254eb",
+        API_URL: process.env.API_URL,
+        API_ACCESS_TOKEN: process.env.API_ACCESS_TOKEN
       },
       API_URL: process.env.API_URL,
       API_ACCESS_TOKEN: process.env.API_ACCESS_TOKEN
