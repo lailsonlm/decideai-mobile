@@ -14,5 +14,3 @@ web-build/
 .DS_Store
 
 .env
-
-eas.json
